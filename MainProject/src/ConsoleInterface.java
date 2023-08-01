@@ -62,7 +62,7 @@ class Customer{
 			passWordList.add(newPassWord);
 			Eligibilty obj1=new Eligibilty();
 			Application obj2=obj1.fillApplication(cust);
-			System.out.println(obj2);
+			System.out.println(obj2.toString());
 			
 		}
 		else if(option==2) {
@@ -79,7 +79,7 @@ class Customer{
 				System.out.println("--------------------------");
 				Eligibilty obj1=new Eligibilty();
 				Application obj2=obj1.fillApplication(cust);
-				System.out.println(obj2);
+				System.out.println(obj2.toString());
 	
 			}
 			else {
@@ -133,6 +133,11 @@ class Application{
 	public void setExistingEMIs(int existingEMI) {
 		this.existingEMIs = existingEMI;
 	}
+	@Override
+	public String toString() {
+		return "Application [name=" + name + ", age=" + age + ", gender=" + gender + ", yearlySalary=" + yearlySalary
+				+ ", existingEMIs=" + existingEMIs + "]";
+	}
 	
 	
 	
@@ -161,10 +166,5 @@ class Eligibilty{
 		app.setExistingEMIs(emi);
 		
 		return app;
-	}
-	@Override
-	public String toString() {
-		return "Application [name=" + name + ", age=" + age + ", gender=" + gender + ", yearlySalary=" + yearlySalary
-				+ ", existingEMIs=" + existingEMIs + "]";
 	}
 }
