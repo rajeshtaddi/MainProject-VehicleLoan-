@@ -60,8 +60,9 @@ class Customer{
 			cust.userName=newUserName;
 			userNameList.add(newUserName);
 			passWordList.add(newPassWord);
-			Application obj1=new Application();
-			obj1=obj1.fillApplication(cust);
+			Eligibilty obj1=new Eligibilty();
+			Application obj2=obj1.fillApplication(cust);
+			System.out.println(obj2);
 			
 		}
 		else if(option==2) {
@@ -76,7 +77,7 @@ class Customer{
 			{
 				System.out.println("You are Logged In Succesful :");
 				System.out.println("--------------------------");
-				Application obj1=new Application();
+				Eligibilty obj1=new Eligibilty();
 				Application obj2=obj1.fillApplication(cust);
 				System.out.println(obj2);
 	
@@ -132,25 +133,32 @@ class Application{
 	public void setExistingEMIs(int existingEMI) {
 		this.existingEMIs = existingEMI;
 	}
+	
+	
+	
+}
+class Eligibilty{
+	
 	Application fillApplication(Customer obj) {
 		Application app=new Application();
 		//app.name=obj.getName();
 		System.out.println("-----------------------");
 		System.out.println("Filling Application");
 		Scanner scann =new Scanner(System.in);
-		app.name=obj.getName();
+		app.setName(obj.getName());
 		System.out.println("Enter the Age :");
 		int ageOfCustomer=scann.nextInt();
 		scann.nextLine();
-		app.age=ageOfCustomer;
+		app.setAge(ageOfCustomer);
 		System.out.println("Enter the Gender :");
 		String genderOfCustomer=scann.nextLine();
-		app.gender=genderOfCustomer;
+		app.setGender(genderOfCustomer);
 		System.out.println("Enter your Yearly Salary :");
 		int salary=scann.nextInt();
+		app.setYearlySalary(salary);
 		System.out.println("Enter the number of EMIs you have previously :");
 		int emi=scann.nextInt();
-		app.existingEMIs=emi;
+		app.setExistingEMIs(emi);
 		
 		return app;
 	}
@@ -159,6 +167,4 @@ class Application{
 		return "Application [name=" + name + ", age=" + age + ", gender=" + gender + ", yearlySalary=" + yearlySalary
 				+ ", existingEMIs=" + existingEMIs + "]";
 	}
-	
-	
 }
