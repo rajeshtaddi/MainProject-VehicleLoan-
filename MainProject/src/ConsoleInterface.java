@@ -64,6 +64,12 @@ class Customer{
 			Application obj2=obj1.fillApplication(cust);
 			System.out.println(obj2.toString());
 			
+			if(obj1.checkEligibility(obj2)==true) {
+				System.out.println("Loan is Granted");
+			}
+			else {
+				System.out.println("Loan is not granted ");
+			}
 		}
 		else if(option==2) {
 		
@@ -80,6 +86,12 @@ class Customer{
 				Eligibilty obj1=new Eligibilty();
 				Application obj2=obj1.fillApplication(cust);
 				System.out.println(obj2.toString());
+				if(obj1.checkEligibility(obj2)==true) {
+					System.out.println("Loan is Granted");
+				}
+				else {
+					System.out.println("Loan is not granted ");
+				}
 	
 			}
 			else {
@@ -166,5 +178,17 @@ class Eligibilty{
 		app.setExistingEMIs(emi);
 		
 		return app;
+	}
+	boolean checkEligibility(Application obj) {
+		if(obj.getExistingEMIs()>=1) {
+			return false;
+		}
+		else if(obj.getYearlySalary()<50000) {
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 }
