@@ -225,6 +225,9 @@ class Application{
 		System.out.println("Enter the Road price of the Vehicle :");
 		double price=scanner.nextDouble();
 		obj.setPrice(price);
+		System.out.println("Enter the Credit Score :");
+		int  cibilScore=scanner.nextInt();
+		obj.setCreditScore(cibilScore);
 		System.out.println("Enter the DownPayment :");
 		double downPayment=scanner.nextDouble();
 		obj.setDownPayment(downPayment);
