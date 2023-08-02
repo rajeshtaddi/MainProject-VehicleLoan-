@@ -63,9 +63,12 @@ class Customer{
 			Eligibilty obj1=new Eligibilty();
 			Application obj2=obj1.fillApplication(cust);
 			System.out.println(obj2.toString());
-			
-			if(obj1.checkEligibility(obj2)==true) {
+			Loan obj=obj2.applyForLoan();
+			System.out.println("-----------Processing your Eiligibility-----------");
+			if(obj1.checkEligibility(obj2,obj)==true) {
 				System.out.println("Loan is Granted");
+				double emi=obj.CalculateEMI(obj);
+				System.out.println("EMI was :"+emi);
 			}
 			else {
 				System.out.println("Loan is not granted ");
@@ -86,8 +89,11 @@ class Customer{
 				Eligibilty obj1=new Eligibilty();
 				Application obj2=obj1.fillApplication(cust);
 				System.out.println(obj2.toString());
-				if(obj1.checkEligibility(obj2)==true) {
+				Loan obj=obj2.applyForLoan();
+				if(obj1.checkEligibility(obj2,obj)==true) {
 					System.out.println("Loan is Granted");
+					double emi=obj.CalculateEMI(obj);
+					System.out.println("EMI was :"+emi);
 				}
 				else {
 					System.out.println("Loan is not granted ");
@@ -108,6 +114,56 @@ class Customer{
 	}
 	
 }
+class Loan{
+	private String vehicleModel;
+	private double price;
+	private double tentureOfLoan;
+	private final double interestRate=8.65;
+	private double downPayment;
+	private double principalAmount;
+	public String getVehicleModel() {
+		return vehicleModel;
+	}
+	public void setVehicleModel(String vehicleModel) {
+		this.vehicleModel = vehicleModel;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public double getTentureOfLoan() {
+		return tentureOfLoan;
+	}
+	public void setTentureOfLoan(double tentureOfLoan) {
+		this.tentureOfLoan = tentureOfLoan*12;
+	}
+	public double getInterestRate() {
+		return interestRate;
+	}
+	public double getDownPayment() {
+		return downPayment;
+	}
+	public void setDownPayment(double downPayment) {
+		this.downPayment = downPayment;
+	}
+	public double getPrincipalAmount() {
+		return principalAmount;
+	}
+	public void setPrincipalAmount(double price,double downPayment) {
+		this.principalAmount = price-downPayment;
+	}
+	double CalculateEMI(Loan obj) {
+		double p=obj.principalAmount;
+		double r=obj.interestRate;
+		double t=obj.tentureOfLoan;
+		double emi=(p*r*Math.pow(1+r,t))/(Math.pow(1+r,t)-1);
+		return emi;
+	}
+	
+}
+
 class Application{
 	
 	private String name;
@@ -151,7 +207,25 @@ class Application{
 				+ ", existingEMIs=" + existingEMIs + "]";
 	}
 	
-	
+	Loan applyForLoan() {
+		System.out.println("--------Applying for the Vehicle Loan-------");
+		Scanner scanner =new Scanner(System.in);
+		Loan obj=new Loan();
+		System.out.println("Enter the Vehicle Type :");
+		String vehicle=scanner.nextLine();
+		obj.setVehicleModel(vehicle);
+		System.out.println("Enter the Road price of the Vehicle :");
+		double price=scanner.nextDouble();
+		obj.setPrice(price);
+		System.out.println("Enter the DownPayment :");
+		double downPayment=scanner.nextDouble();
+		obj.setDownPayment(downPayment);
+		System.out.println("Enter the Tensure of Loan :");
+		double tensure=scanner.nextDouble();
+		obj.setTentureOfLoan(tensure);
+		obj.setPrincipalAmount(price, downPayment);
+		return obj;
+	}
 	
 }
 class Eligibilty{
@@ -179,7 +253,7 @@ class Eligibilty{
 		
 		return app;
 	}
-	boolean checkEligibility(Application obj) {
+	boolean checkEligibility(Application obj,Loan objLoan) {
 		if(obj.getExistingEMIs()>=1) {
 			return false;
 		}
