@@ -219,7 +219,7 @@ class Application{
 		System.out.println("Enter the Tensure of Loan in Years :");
 		double tensure=scanner.nextDouble();
 		obj.setTentureOfLoan(tensure);
-		obj.setPrincipalAmount(price, downPayment);
+		//obj.setPrincipalAmount(price, downPayment);
 		return obj;
 	}
 	
