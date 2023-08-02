@@ -117,12 +117,12 @@ class Customer{
 	
 }
 class Loan{
-	private String vehicleModel;
+		private String vehicleModel;
 	private double price;
 	private double tentureOfLoan;
-	private final double interestRate=8.65;
+	private final float interestRate=0.00720f;//8.65
 	private double downPayment;
-	private double principalAmount;
+	//private double principalAmount;
 	public String getVehicleModel() {
 		return vehicleModel;
 	}
@@ -139,10 +139,10 @@ class Loan{
 		return tentureOfLoan;
 	}
 	public void setTentureOfLoan(double tentureOfLoan) {
-		this.tentureOfLoan = tentureOfLoan*12;
+		this.tentureOfLoan = tentureOfLoan;
 	}
 	public double getInterestRate() {
-		return (interestRate*12)/100;
+		return interestRate;
 	}
 	public double getDownPayment() {
 		return downPayment;
@@ -150,16 +150,10 @@ class Loan{
 	public void setDownPayment(double downPayment) {
 		this.downPayment = downPayment;
 	}
-	public double getPrincipalAmount() {
-		return principalAmount;
-	}
-	public void setPrincipalAmount(double price,double downPayment) {
-		this.principalAmount = price-downPayment;
-	}
 	double CalculateEMI(Loan obj) {
-		double p=obj.principalAmount;
-		double r=obj.interestRate;
-		double t=obj.tentureOfLoan;
+		double p=obj.price-obj.downPayment;
+		float r=obj.interestRate;
+		double t=(obj.tentureOfLoan)*12;
 		double emi=(p*r*Math.pow(1+r,t))/(Math.pow(1+r,t)-1);
 		return emi;
 	}
