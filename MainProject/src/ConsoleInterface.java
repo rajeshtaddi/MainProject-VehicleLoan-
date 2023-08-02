@@ -54,7 +54,7 @@ class Customer{
 			String newUserName=scanner.nextLine();
 			System.out.println("Enter the new PassWord :");
 			String newPassWord=scanner.nextLine();
-			System.out.println("Account is created Succesfully");
+			System.out.println("Account is created and You Loged In Succesfully");
 			cust.name=nameOfCustomer;
 			cust.passWord=newPassWord;
 			cust.userName=newUserName;
@@ -72,6 +72,7 @@ class Customer{
 			}
 			else {
 				System.out.println("Loan is not granted ");
+				takeInput();
 			}
 		}
 		else if(option==2) {
@@ -97,6 +98,7 @@ class Customer{
 				}
 				else {
 					System.out.println("Loan is not granted ");
+					takeInput();
 				}
 	
 			}
@@ -140,7 +142,7 @@ class Loan{
 		this.tentureOfLoan = tentureOfLoan*12;
 	}
 	public double getInterestRate() {
-		return interestRate;
+		return (interestRate*12)/100;
 	}
 	public double getDownPayment() {
 		return downPayment;
@@ -220,7 +222,7 @@ class Application{
 		System.out.println("Enter the DownPayment :");
 		double downPayment=scanner.nextDouble();
 		obj.setDownPayment(downPayment);
-		System.out.println("Enter the Tensure of Loan :");
+		System.out.println("Enter the Tensure of Loan in Years :");
 		double tensure=scanner.nextDouble();
 		obj.setTentureOfLoan(tensure);
 		obj.setPrincipalAmount(price, downPayment);
@@ -254,10 +256,12 @@ class Eligibilty{
 		return app;
 	}
 	boolean checkEligibility(Application obj,Loan objLoan) {
-		if(obj.getExistingEMIs()>=1) {
+		if(obj.getExistingEMIs()>1) {
+			System.out.println("You already have previous EMI's :");
 			return false;
 		}
-		else if(obj.getYearlySalary()<50000) {
+		else if((0.4)*obj.getYearlySalary()<objLoan.getPrice()) {
+			System.out.println("Your Salary is too Low for this Type of Loan :");
 			return false;
 		}
 		else
