@@ -122,7 +122,14 @@ class Loan{
 	private double tentureOfLoan;
 	private final float interestRate=0.00720f;//8.65
 	private double downPayment;
+	private int creditScore;
 	//private double principalAmount;
+	public void setCreditScore(int creditScore) {
+		this.creditScore=creditScore;
+	}
+	public int getCreditScore() {
+		return creditScore;
+	}
 	public String getVehicleModel() {
 		return vehicleModel;
 	}
@@ -156,6 +163,11 @@ class Loan{
 		double t=(obj.tentureOfLoan)*12;
 		double emi=(p*r*Math.pow(1+r,t))/(Math.pow(1+r,t)-1);
 		return emi;
+	}
+	public String toString() {
+		return "Loan [vehicleModel=" + vehicleModel + ", price=" + price + ", tentureOfLoan=" + tentureOfLoan
+				+ ", interestRate=" + interestRate + ", downPayment=" + downPayment + ", creditScore=" + creditScore
+				+ "]";
 	}
 	
 }
@@ -250,11 +262,20 @@ class Eligibilty{
 		return app;
 	}
 	boolean checkEligibility(Application obj,Loan objLoan) {
-		if(obj.getExistingEMIs()>1) {
+		int cibilScore=objLoan.getCreditScore();
+		if(obj.getAge()<=21&&obj.getAge()>=60) {
+			System.out.println("Age must be between 21 and 60:");
+			return false;
+		}
+		 if(cibilScore<600) {
+			System.out.println("Credit score must be above a certain threshold:");
+			return false;
+		}
+		else if(obj.getExistingEMIs()>1) {
 			System.out.println("You already have previous EMI's :");
 			return false;
 		}
-		else if((0.4)*obj.getYearlySalary()<objLoan.getPrice()) {
+		else if(obj.getYearlySalary()<80000) {
 			System.out.println("Your Salary is too Low for this Type of Loan :");
 			return false;
 		}
